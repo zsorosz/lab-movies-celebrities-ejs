@@ -80,22 +80,22 @@ In order to have everything organized, we will first create a couple of folders 
 
 ```js
 // starter code in both routes/celebrities.routes.js and routes/movies.routes.js
-const router = require("express").Router();
+const router = require('express').Router()
 
 // all your routes here
 
-module.exports = router;
+module.exports = router
 ```
 
 - **Views**: To keep things nice and clean, we will also create separate folders for `celebrities` and `movies`: `views/celebrities` and `views/movies`. Also, we will create a couple of files in each folder:
 
-  - `views/celebrities/celebrities.hbs`
-  - `views/celebrities/new-celebrity.hbs`
+  - `views/celebrities/celebrities.ejs`
+  - `views/celebrities/new-celebrity.ejs`
 
-  - `views/movies/movies.hbs`
-  - `views/movies/new-movie.hbs`
-  - `views/movies/movie-details.hbs`
-  - `views/movies/edit-movie.hbs`
+  - `views/movies/movies.ejs`
+  - `views/movies/new-movie.ejs`
+  - `views/movies/movie-details.ejs`
+  - `views/movies/edit-movie.ejs`
 
 Obviously, naming is the matter of preference so we used very descriptive names for routes and views.
 
@@ -141,7 +141,7 @@ Now that we have defined _Celebrity_ model, let's make it so the user can **add 
 5. In that route we have to **create** an instance of the `Celebrity` model (don't forget, we should get all the info from the form through _req.body_)
    - If there is an error, render the `celebrities/new-celebrity` view so the user can try again and
    - If there is no error, redirect to the page with the list of celebrities. This route will be created in the next iteration `/celebrities`
-6. In the `views/index.hbs` view file:
+6. In the `views/index.ejs` view file:
    - Add a link that goes to the page you just created with the form to create a new celebrity.
 
 <br>
@@ -165,12 +165,12 @@ Here's the route we will be using:
 1. Create the `/celebrities` GET route in `routes/celebrities.routes.js`.
 2. In the route:
    - Use `find()` method on the `Celebrity` model to retrieve all the celebrities
-   - If everything is okay, render the `celebrities/celebrities.hbs` view and pass the array of celebrities into the view as a variable
+   - If everything is okay, render the `celebrities/celebrities.ejs` view and pass the array of celebrities into the view as a variable
    - If there's an error, catch it
-3. In the `views/celebrities/celebrities.hbs` view file:
+3. In the `views/celebrities/celebrities.ejs` view file:
    - Add an `<h2>` tag for the page's heading.
-   - Use a hbs `#each` loop to display tags with each celebrity's `name`.
-4. In the `views/index.hbs` (homepage) file:
+   - Use a `forEach` loop to display tags with each celebrity's `name`.
+4. In the `views/index.ejs` (homepage) file:
    - Add a link that goes to the `/celebrities` route.
 
 <br>
@@ -214,7 +214,7 @@ Okay, the next step is to make it so the user can **add new movies to the databa
 Review how you did this for the `Celebrity` model.
 
 - Create 2 new routes, one to render page with the form on it, and one to send the data to after the form is filled out
-  - In the GET route that displays the form to create a new movie (which renders the `movies/new-movie.hbs`), make sure you pass all the celebrities from your database so your users can choose which ones are in the cast of the movie you're just creating (**hint**: You will have to use [select multiple](https://www.w3schools.com/tags/att_select_multiple.asp) tag)
+  - In the GET route that displays the form to create a new movie (which renders the `movies/new-movie.ejs`), make sure you pass all the celebrities from your database so your users can choose which ones are in the cast of the movie you're just creating (**hint**: You will have to use [select multiple](https://www.w3schools.com/tags/att_select_multiple.asp) tag)
 - Remember that the user should see the cast name in the option tags, but the information that should be transmitted (`value`) is the `_id` we will use for the `cast` attribute of the movie.
 - Make sure the form is making a POST request to the other route you just created (`/movies/create`)
 - In your post route, create an object with all the info you just received from the form. (Remember, `req.body`)
@@ -239,16 +239,16 @@ Here's the route we will be using:
 
 Go back and review how you did this for the `celebrities`. You'll need to:
 
-- Create a GET route that will render the file in which we will display movies (`movies/movies.hbs`)
+- Create a GET route that will render the file in which we will display movies (`movies/movies.ejs`)
 - Use a database query to retrieve all the movies from your database and render the view
-- Use a hbs `#each` loop to display all your _movie titles_ on that page
+- Use a `forEach` loop to display all your _movie titles_ on that page
 - Add a link to the page you just created on the home page so the user can navigate to it.
 
 <br>
 
 ## Iteration #8: The Movie Details Page
 
-We've got a list of all movies that displays each of their _titles_, but what if we want to see the other details? In our `movies/movies.hbs` view with our list of movies, let's add links so that the user can click on any movie's title, and go to a details page of each movie. On this page, we will show all the details of that movie.
+We've got a list of all movies that displays each of their _titles_, but what if we want to see the other details? In our `movies/movies.ejs` view with our list of movies, let's add links so that the user can click on any movie's title, and go to a details page of each movie. On this page, we will show all the details of that movie.
 Here's the route we will be using:
 
 <br>
@@ -268,10 +268,10 @@ Here's the route we will be using:
      - Don't forget you have `cast` as the array of celebrity `id`s, and we need to `populate()` in order to get the full data about the celebrities 🎯
    - If everything is fine (_.then()_), render the `movies/movie-details` view and pass the variable with the movie's details into the view
    - If there's an error, catch it.
-4. In the `views/movies/movie-details.hbs` view file:
+4. In the `views/movies/movie-details.ejs` view file:
    - Add an `<h2>` for the page's heading.
    - Display tags with the movie's `title`, `genre` and `plot`.
-   - Use a hbs `#each` loop to display the cast's `name`, `occupation` and `catchPhrase`
+   - Use a `forEach` loop to display the cast's `name`, `occupation` and `catchPhrase`
 
 <br>
 
@@ -289,7 +289,7 @@ Now that we have a list of movies, a movie details page, and a page to create ne
 
 ### Steps we will follow in this iteration:
 
-1. In the `movies/movie-details.hbs` file:
+1. In the `movies/movie-details.ejs` file:
    - Add a `<form>` tag that makes a POST request to `/movies/:id/delete` where the `:id` is replaced by the actual `id` of the movie.
    - Add a `<button>` tag inside the form so that it can be submitted.
 2. Create the `/movies/:id/delete` POST route in your `routes/movies.routes.js` file
@@ -323,7 +323,7 @@ Here are the routes we will be using:
    - Call the `Celebrity` model's `find()` to retrieve all celebrities for the cast.
    - If everything is good, render the `movies/edit-movie` view
    - Pass the variable with the movie's details and all celebrities into the view
-3. In the `movies/edit-movie.hbs` view file:
+3. In the `movies/edit-movie.ejs` view file:
    - Add an `<h2>` tag for the page's heading.
    - Add a `<form>` tag that makes a POST request to `/movies/:id` with the `:id` replaced by the actual movie's _id_.
    - Add `<input>` tags inside the form for each attribute of the movie.
