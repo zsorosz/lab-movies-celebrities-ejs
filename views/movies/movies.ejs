@@ -3,6 +3,10 @@
 <div><%= movie.title %></div>
 <div><%= movie.genre %></div>
 <div><%= movie.plot %></div>
-<div><%= movie.cast %></div>
+<ul>
+  Cast: <% movie.cast.forEach(celeb => { %>
+  <li><%= celeb.name %></li>
+  <% }) %>
+</ul>
 <a href="/movies/<%= movie._id %>">View movie</a>
 <% }) %>

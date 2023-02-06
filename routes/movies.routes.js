@@ -6,15 +6,16 @@ const router = require("express").Router();
 /* GET home page */
 router.get("/", async (req, res, next) => {
   try {
-    const allMovies = await MovieModel.find();
+    const allMovies = await MovieModel.find().populate("cast");
     res.render("movies/movies", { allMovies });
   } catch (err) {
     console.log("Ohh nooo, error", err);
   }
 });
 
-router.get("/create", (req, res) => {
-  res.render("movies/new-movie");
+router.get("/create", async (req, res) => {
+  const allCelebs = await CelebrityModel.find();
+  res.render("movies/new-movie", { allCelebs });
 });
 
 router.post("/create", async (req, res) => {

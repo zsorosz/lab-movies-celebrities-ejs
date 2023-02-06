@@ -2,11 +2,11 @@
 <div><%= foundMovie.genre %></div>
 <div><%= foundMovie.plot %></div>
 <ul>
-  <% foundMovie.cast.forEach(celeb => { %>
+  Cast: <% foundMovie.cast.forEach(celeb => { %>
   <li>
     <h2><%= celeb.name %></h2>
-    <h2><%= celeb.occupation %></h2>
-    <h2><%= celeb.catchPhrase%></h2>
+    <h4><%= celeb.occupation %></h4>
+    <h4>"<%= celeb.catchPhrase%>"</h4>
   </li>
   <% }) %>
 </ul>

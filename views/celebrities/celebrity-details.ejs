@@ -1,0 +1,8 @@
+<h2><%= foundCeleb.name %></h2>
+<div><%= foundCeleb.occupation %></div>
+<div><%= foundCeleb.catchPhrase %></div>
+
+<a href="/celebrities/<%= foundCeleb._id %>/edit">Edit</a>
+<form method="POST" action="/celebrities/<%= foundCeleb._id %>/delete">
+  <button type="submit">Delete</button>
+</form>
