@@ -1,3 +1,4 @@
+const CelebrityModel = require("../models/Celebrity.model");
 const MovieModel = require("../models/Movie.model");
 
 const router = require("express").Router();
@@ -28,6 +29,26 @@ router.get("/:id", async (req, res) => {
       "cast"
     );
     res.render("movies/movie-details", { foundMovie });
+  } catch (err) {
+    console.log("Ohh nooo, error", err);
+  }
+});
+
+router.get("/:id/edit", async (req, res) => {
+  try {
+    const movie = await MovieModel.findById(req.params.id);
+    const allCelebs = await CelebrityModel.find();
+    console.log(allCelebs);
+    res.render("movies/edit-movie", { movie, allCelebs });
+  } catch (err) {
+    console.log("Ohh nooo, error", err);
+  }
+});
+
+router.post("/:id", async (req, res) => {
+  try {
+    await MovieModel.findByIdAndUpdate(req.params.id, req.body);
+    res.redirect(`/movies/${req.params.id}`);
   } catch (err) {
     console.log("Ohh nooo, error", err);
   }
