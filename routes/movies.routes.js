@@ -6,7 +6,6 @@ const router = require("express").Router();
 router.get("/", async (req, res, next) => {
   try {
     const allMovies = await MovieModel.find();
-    console.log(allMovies);
     res.render("movies/movies", { allMovies });
   } catch (err) {
     console.log("Ohh nooo, error", err);
@@ -21,6 +20,17 @@ router.post("/create", async (req, res) => {
   const newMovie = req.body;
   await MovieModel.create(newMovie);
   res.redirect("/movies");
+});
+
+router.get("/:id", async (req, res) => {
+  try {
+    const foundMovie = await MovieModel.findById(req.params.id).populate(
+      "cast"
+    );
+    res.render("movies/movie-details", { foundMovie });
+  } catch (err) {
+    console.log("Ohh nooo, error", err);
+  }
 });
 
 module.exports = router;
