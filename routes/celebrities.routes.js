@@ -3,8 +3,14 @@ const CelebrityModel = require("../models/Celebrity.model");
 const router = require("express").Router();
 
 /* GET home page */
-router.get("/", (req, res, next) => {
-  res.render("celebrities/celebrities");
+router.get("/", async (req, res, next) => {
+  try {
+    const allCelebs = await CelebrityModel.find();
+    console.log(allCelebs);
+    res.render("celebrities/celebrities", { allCelebs });
+  } catch (err) {
+    console.log("Ohh nooo, error", err);
+  }
 });
 
 router.get("/create", (req, res) => {
