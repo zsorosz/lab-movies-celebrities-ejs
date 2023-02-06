@@ -33,4 +33,14 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.post("/:id/delete", async (req, res) => {
+  try {
+    console.log(req.params.id);
+    await MovieModel.findByIdAndRemove(req.params.id);
+    res.redirect("/movies");
+  } catch (err) {
+    console.log("Ohh nooo, error", err);
+  }
+});
+
 module.exports = router;
