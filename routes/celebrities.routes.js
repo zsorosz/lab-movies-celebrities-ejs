@@ -20,7 +20,7 @@ router.get("/create", (req, res) => {
 router.post("/create", async (req, res) => {
   const newCeleb = req.body;
   await CelebrityModel.create(newCeleb);
-  res.render("celebrities");
+  res.redirect("/celebrities");
 });
 
 module.exports = router;
