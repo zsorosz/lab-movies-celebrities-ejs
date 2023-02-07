@@ -13,15 +13,6 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
-  try {
-    const foundCeleb = await CelebrityModel.findById(req.params.id);
-    res.render("celebrities/celebrity-details", { foundCeleb });
-  } catch (err) {
-    console.log("Ohh nooo, error", err);
-  }
-});
-
 router.get("/create", (req, res) => {
   res.render("celebrities/new-celebrity");
 });
@@ -36,6 +27,15 @@ router.get("/:id/edit", async (req, res) => {
   try {
     const celeb = await CelebrityModel.findById(req.params.id);
     res.render("celebrities/edit-celebrity", { celeb });
+  } catch (err) {
+    console.log("Ohh nooo, error", err);
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  try {
+    const foundCeleb = await CelebrityModel.findById(req.params.id);
+    res.render("celebrities/celebrity-details", { foundCeleb });
   } catch (err) {
     console.log("Ohh nooo, error", err);
   }

@@ -16,7 +16,9 @@
     >Cast:
     <select name="cast" multiple="multiple">
       <% allCelebs.forEach(celeb => { %>
-      <option value="<%= celeb._id %>"><%= celeb.name %></option>
+      <option value="<%= celeb._id %>" <%if(movie.cast.includes(celeb._id)){%>
+        selected <% } %>> <%= celeb.name %>
+      </option>
       <% }) %>
     </select>
   </label>
